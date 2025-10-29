@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url('img/12371.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+}
+
+.filtro {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(115, 12, 249, 0.281);
+}
+
+.ocultar {
+    display: none;
+}
