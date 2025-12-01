@@ -7,6 +7,9 @@ let tragos = [];
 
 let carrito = [];
 
+const contenido = document.querySelector("#contenido");
+const filtro = document.querySelector(".filtro");
+
 async function cargaDeDatos() {
     const res = await fetch("bebidas.json");
     const data = await res.json();
@@ -28,14 +31,22 @@ async function cargaDeDatos() {
 async function init() {
     await cargaDeDatos();
 
-    document.getElementById("botonCliente").addEventListener("click", () => menuCliente());
+
+
+
+    document.getElementById("botonCliente").addEventListener("click", () => {
+        filtro.classList.replace("justify-content-center", "justify-content-start")
+        contenido.className = "w-100 h-100";
+        menuCliente()
+    });
     document.getElementById("botonAdmin").addEventListener("click", () => {
 
+        filtro.classList.replace("justify-content-center", "justify-content-start")
         contenedorInicio.className = "ocultar";
         contenedorPrincipal.innerHTML = `
-            <h2>Ingrese la contraseña</h2>
+            <h2 class="tituloBtnVolver ps-4">Ingrese la contraseña</h2>
             <input type="password" id="contrasenaAdmin" placeholder="Contraseña">
-            <button id="botonContraAdmin" type="button" class="btn btn-primary">Ingresar</button>
+            <button id="botonContraAdmin" type="button">Ingresar</button>
         `
 
         comprobarContrasena();
@@ -94,9 +105,9 @@ function mostrarModal(titulo, mensaje) {
 
 function btnVolver(titulo, menu) {
     contenedorPrincipal.innerHTML = `
-        <div class="tituloOpcion d-flex flex-row ps-3">
-            <button id="botonVolver"><- Volver</button>
-            <h2>${titulo}</h2>
+        <div class="tituloOpcion d-flex flex-row align-items-center ps-3">
+            <button id="botonVolver">ᐸ</button>
+            <h2 class="tituloBtnVolver">${titulo}</h2>
         </div>
     `;
 
@@ -106,6 +117,8 @@ function btnVolver(titulo, menu) {
 function volverAlInicio() {
     contenedorPrincipal.innerHTML = "";
     contenedorInicio.classList.remove("ocultar");
+
+    filtro.classList.replace("justify-content-start", "justify-content-center")
 }
 
 
@@ -117,12 +130,12 @@ function menuCliente() {
     btnVolver("Seleccione una Opción", volverAlInicio);
 
     const opciones = document.createElement("div");
+    opciones.className = "divBotones";
     opciones.innerHTML = `
-        <h2>Seleccione una opción</h2>
-        <button id="botonComprarBebidas">Comprar bebidas</button>
-        <button id="botonComprarTrago">Pedir un trago</button>
-        <button id="botonCuenta">Solicitar la cuenta</button>
-        <button id="botonPagar">Pagar</button>
+        <button id="botonComprarBebidas" class="botonesSecundarios">Comprar bebidas</button>
+        <button id="botonComprarTrago" class="botonesSecundarios">Pedir un trago</button>
+        <button id="botonCuenta" class="botonesSecundarios">Solicitar la cuenta</button>
+        <button id="botonPagar" class="botonesSecundarios">Pagar</button>
     `;
 
     contenedorPrincipal.appendChild(opciones);
@@ -133,10 +146,11 @@ function menuCliente() {
 
         const opciones = document.createElement("div");
         opciones.id = "opcionesMenu";
+        opciones.className = "divBotones pt-5";
 
         opciones.innerHTML = `
-            <button id="botonBebidaConA">Bebidas con Alcohol</button>
-            <button id="botonBebidaSinA">Bebidas sin Alcohol</button>
+            <button id="botonBebidaConA" class="botonesSecundarios">Bebidas con Alcohol</button>
+            <button id="botonBebidaSinA" class="botonesSecundarios">Bebidas sin Alcohol</button>
         `;
 
         contenedorPrincipal.appendChild(opciones);
@@ -262,13 +276,13 @@ function menuAdmin() {
     btnVolver("Bienvenido Administrador !", volverAlInicio);
 
     const opciones = document.createElement("div");
+    opciones.className = "divBotones";
     opciones.innerHTML = `
-        <h3> Seleccione una opción</h3>
-        <button id="botonVerStock">Ver Stock</button>
-        <button id="botonAgregarStock">Agregar Stock</button>
-        <button id="botonAgregarTrago">Agregar Trago</button>
-        <button id="botonEliminarProducto">Eliminar Producto</button>
-        <button id="botonEditarTrago">Modificar Trago</button>
+        <button id="botonVerStock" class="botonesSecundarios">Ver Stock</button>
+        <button id="botonAgregarStock" class="botonesSecundarios">Agregar Stock</button>
+        <button id="botonAgregarTrago" class="botonesSecundarios">Agregar Trago</button>
+        <button id="botonEliminarProducto" class="botonesSecundarios">Eliminar Producto</button>
+        <button id="botonEditarTrago" class="botonesSecundarios">Modificar Trago</button>
     `;
 
     contenedorPrincipal.appendChild(opciones);
@@ -278,7 +292,7 @@ function menuAdmin() {
 
 function comprobarContrasena() {
 
-
+    contenido.className = "w-100 h-100";
     document.getElementById("botonContraAdmin").addEventListener("click", () => {
         const contrasena = document.getElementById("contrasenaAdmin").value.trim();
         console.log(contrasena)
